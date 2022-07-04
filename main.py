@@ -124,7 +124,7 @@ class HandRecognition:
 
                     self.counter += 1
                     if self.counter > self.time_limit:
-                        self.res[0] = "crain down"
+                        self.res[0] = "crane down"
                         self.craneDown = True
 
                     if self.counter <= self.time_limit and not self.craneDown:
@@ -132,7 +132,7 @@ class HandRecognition:
                                                (rec_center[0] - 50, 200),
                                                cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
                     elif self.craneDown:
-                        self.img = cv2.putText(self.img, "crain down", (rec_center[0] - 250, 200),
+                        self.img = cv2.putText(self.img, "crane down", (rec_center[0] - 250, 200),
                                                cv2.FONT_HERSHEY_SIMPLEX, 3, (0, 0, 255), 2)
                         self.counter = 0
 
