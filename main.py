@@ -7,7 +7,7 @@ from utils_joint_angle import GestureRecognition
 import socket
 
 mp_drawing = mp.solutions.drawing_utils
-mp_drawing_styles = mp.solutions.drawing_styles
+# mp_drawing_styles = mp.solutions.drawing_styles
 
 HOST = '127.0.0.1'
 PORT = 8000
@@ -79,19 +79,6 @@ class HandRecognition:
             if not ret:
                 break
 
-            # UI
-            rec_size = (180, 180)
-            rec_center = (int(self.img.shape[1] / 2), int(self.img.shape[0] / 2))
-            rec_left_top = ((rec_center[0] - rec_size[0]), (rec_center[1] - rec_size[1]))
-            rec_bot_right = ((rec_center[0] + rec_size[0]), (rec_center[1] + rec_size[1]))
-
-            self.img = cv2.rectangle(self.img, rec_left_top, rec_bot_right, (255, 0, 0), 2)
-
-            self.img = cv2.line(self.img, rec_left_top, rec_bot_right, (255, 0, 0), 2)
-
-            self.img = cv2.line(self.img, (rec_bot_right[0], rec_left_top[1]), (rec_left_top[0], rec_bot_right[1]),
-                                (255, 0, 0), 2)
-
             # Flip image for 3rd person view
             self.img = cv2.flip(self.img, 1)
 
@@ -107,6 +94,19 @@ class HandRecognition:
 
             # evaluate
             finger_tip = param[0]['keypt'][8]
+
+            # UI
+            rec_size = (180, 180)
+            rec_center = (int(self.img.shape[1] / 2), int(self.img.shape[0] / 2))
+            rec_left_top = ((rec_center[0] - rec_size[0]), (rec_center[1] - rec_size[1]))
+            rec_bot_right = ((rec_center[0] + rec_size[0]), (rec_center[1] + rec_size[1]))
+
+            self.img = cv2.rectangle(self.img, rec_left_top, rec_bot_right, (255, 0, 0), 2)
+
+            self.img = cv2.line(self.img, rec_left_top, rec_bot_right, (255, 0, 0), 2)
+
+            self.img = cv2.line(self.img, (rec_bot_right[0], rec_left_top[1]), (rec_left_top[0], rec_bot_right[1]),
+                                (255, 0, 0), 2)
 
             if evaluate == 'one':
                 self.isInside(rec_size, rec_center, finger_tip)
